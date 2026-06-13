@@ -1,5 +1,5 @@
-CREATE USER 'javatodev_development'@'%' IDENTIFIED BY 'oPItyPticIAt';
-GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES on *.* TO 'javatodev_development'@'%';
+-- CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 CREATE DATABASE IF NOT EXISTS banking_core_service;
