@@ -52,16 +52,20 @@ public class CustomFeignErrorDecoder implements ErrorDecoder {
             exceptionMessage = mapper.readValue(result,
                     SimpleBankingGlobalException.class);
         } catch (IOException e) {
-            log.error("IO Exception on reading exception message feign client" + e);
+            logError(e);
         } finally {
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (IOException e) {
-                log.error("IO Exception on reading exception message feign client" + e);
+                logError(e);
             }
         }
         return exceptionMessage;
+    }
+
+    private static void logError(IOException e) {
+        log.error("IO Exception on reading exception message feign client{}", String.valueOf(e));
     }
 }
