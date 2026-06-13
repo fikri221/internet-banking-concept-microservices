@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:banking_core_fund_transfer_service
     username: root
-    password: password
+    password: root
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
