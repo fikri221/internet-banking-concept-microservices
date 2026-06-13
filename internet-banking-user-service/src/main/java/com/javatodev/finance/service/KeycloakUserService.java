@@ -23,12 +23,14 @@ public class KeycloakUserService {
     private static final Logger log = LoggerFactory.getLogger(KeycloakUserService.class);
     private final KeycloakManager keyCloakManager;
 
+    // create user in keycloak realm
     public Integer createUser(UserRepresentation userRepresentation) {
         Response response = keyCloakManager.getKeyCloakInstanceWithRealm().users().create(userRepresentation);
         return response.getStatus();
     }
 
     public void updateUser(UserRepresentation userRepresentation) {
+        // update user in keycloak realm
         keyCloakManager.getKeyCloakInstanceWithRealm().users().get(userRepresentation.getId()).update(userRepresentation);
     }
 
@@ -37,7 +39,7 @@ public class KeycloakUserService {
         return keyCloakManager.getKeyCloakInstanceWithRealm().users().search(email);
     }
 
-
+    // method to get user by email and get user by authId
     public UserRepresentation readUser(String authId) {
         try {
             UserResource userResource = keyCloakManager.getKeyCloakInstanceWithRealm().users().get(authId);

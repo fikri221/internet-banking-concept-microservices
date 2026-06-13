@@ -18,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -33,20 +32,24 @@ public class UserService {
 
     public User createUser(User user) {
 
-        // digunakan untuk
+        // this is to check if user is already registered
         List<UserRepresentation> userRepresentations = keycloakUserService.readUserByEmail(user.getEmail());
         if (!userRepresentations.isEmpty()) {
             throw new UserAlreadyRegisteredException("This email already registered as a user. Please check and retry.", GlobalErrorCode.ERROR_EMAIL_REGISTERED);
         }
 
+        // get user from banking core
         UserResponse userResponse = bankingCoreRestClient.readUser(user.getIdentification());
 
+        // check if user is found
         if (userResponse.getId() != null) {
 
+            // check if user email is same as the one in banking core
             if (!userResponse.getEmail().equals(user.getEmail())) {
                 throw new InvalidEmailException("Incorrect email. Please check and retry.", GlobalErrorCode.ERROR_INVALID_EMAIL);
             }
 
+            // get user representation for keycloak
             UserRepresentation userRepresentation = getUserRepresentation(user, userResponse);
 
             Integer userCreationResponse = keycloakUserService.createUser(userRepresentation);
@@ -81,7 +84,7 @@ public class UserService {
         CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
         credentialRepresentation.setValue(user.getPassword());
         credentialRepresentation.setTemporary(false);
-        userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
+        userRepresentation.setCredentials(List.of(credentialRepresentation));
         return userRepresentation;
     }
 
