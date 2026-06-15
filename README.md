@@ -10,15 +10,22 @@ In this article series I’m going to explain using internet banking API concept
 
 [1.0.0](https://github.com/JavatoDev-com/internet-banking-concept-microservices/releases/tag/v.1.0.0) - Initial release with Java 11 and Spring Boot 2.
 
-### Microservices Inside This Project
+### Layanan (Services) Dalam Proyek Ini
 
-Here this project consist of mainly 6 microservices and those are,
+Proyek ini menggunakan arsitektur microservices yang terdiri dari beberapa layanan inti dan pendukung:
 
-- User service (banking-core-user-service) – This service includes all the operations under the User such as registrations and retrieval. Additionally, this API consumes keycloak REST API to register and manage the user base while using the local PostgreSQL database as well.
-- Fund transfer service (banking-core-fund-transfer-service) – This is the service that handles all the fund transfers between accounts and this API will push messages to a centralized RabbitMQ queue to use from the Notification service.
-- Payment service (banking-core-payments-service) – This service will include all the API endpoints to process Utility payments in this project and that will push notification messages to RabbitMQ as well.
-- Notification service – This API is registered under the service registry but consumes all the messages from RabbitMQ and pushes necessary notifications to the end users. - PENDING Development
-- Banking core service – This is the banking core service that acts as a dummy banking core with accounts, users, transaction details, and processors for banking transactions.
+#### Layanan Inti (Core Services):
+- **User Service (`internet-banking-user-service`)**: Mengelola data pengguna, pendaftaran, dan profil. Layanan ini terintegrasi dengan Keycloak untuk manajemen identitas dan menggunakan basis data untuk menyimpan informasi tambahan pengguna.
+- **Core Banking Service (`core-banking-service`)**: Jantung dari sistem perbankan yang mensimulasikan operasional bank, termasuk manajemen akun dan pemrosesan transaksi dasar.
+- **Fund Transfer Service (`internet-banking-fund-transfer-service`)**: Menangani proses transfer dana antar rekening dan mengirimkan pesan ke antrean (RabbitMQ) untuk notifikasi.
+- **Utility Payment Service (`internet-banking-utility-payment-service`)**: Layanan khusus untuk memproses pembayaran tagihan (listrik, air, dll).
+
+#### Infrastruktur & Pendukung (Infrastructure & Support):
+- **Service Registry (`internet-banking-service-registry`)**: Menggunakan Netflix Eureka agar setiap microservice dapat saling menemukan satu sama lain secara dinamis.
+- **Config Server (`internet-banking-config-server`)**: Menyediakan konfigurasi terpusat untuk semua microservice, memudahkan manajemen konfigurasi di berbagai lingkungan.
+- **API Gateway (`internet-banking-api-gateway`)**: Menjadi gerbang tunggal untuk akses API, menangani routing permintaan ke layanan yang sesuai, serta keamanan.
+- **Keycloak (`keycloak_web`)**: Server manajemen identitas dan akses (IAM) untuk menangani autentikasi dan otorisasi pengguna secara aman.
+- **MySQL & PostgreSQL (`mysql_core_db` & `keycloakdb`)**: Basis data relasional yang digunakan oleh layanan inti dan Keycloak untuk penyimpanan data yang persisten.
 
 ### Base Project Architecture
 
