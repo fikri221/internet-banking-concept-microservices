@@ -26,10 +26,10 @@ public class FundTransferService {
     private final FundTransferRepository fundTransferRepository;
     private final BankingCoreFeignClient bankingCoreFeignClient;
 
-    private FundTransferMapper mapper = new FundTransferMapper();
+    private final FundTransferMapper mapper = new FundTransferMapper();
 
     public FundTransferResponse fundTransfer(FundTransferRequest request) {
-        log.info("Sending fund transfer request {}" + request.toString());
+        log.info("Sending fund transfer request {}", request.toString());
 
         FundTransferEntity entity = new FundTransferEntity();
         BeanUtils.copyProperties(request, entity);
