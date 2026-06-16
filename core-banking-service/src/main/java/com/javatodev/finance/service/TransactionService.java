@@ -32,8 +32,10 @@ public class TransactionService {
     private final BankAccountRepository bankAccountRepository;
     private final TransactionRepository transactionRepository;
 
+    // fund transfer from one account to another
     public FundTransferResponse fundTransfer(FundTransferRequest fundTransferRequest) {
 
+        // read bank accounts
         BankAccount fromBankAccount = accountService.readBankAccount(fundTransferRequest.getFromAccount());
         BankAccount toBankAccount = accountService.readBankAccount(fundTransferRequest.getToAccount());
 
@@ -45,6 +47,7 @@ public class TransactionService {
 
     }
 
+    // utility payment from one account to another
     public UtilityPaymentResponse utilPayment(UtilityPaymentRequest utilityPaymentRequest) {
 
         String transactionId = UUID.randomUUID().toString();
@@ -61,7 +64,7 @@ public class TransactionService {
         //we can call third party API to process UTIL payment from payment provider from here.
 
         fromAccount.setActualBalance(fromAccount.getActualBalance().subtract(utilityPaymentRequest.getAmount()));
-        fromAccount.setAvailableBalance(fromAccount.getActualBalance().subtract(utilityPaymentRequest.getAmount()));
+        fromAccount.setAvailableBalance(fromAccount.getAvailableBalance().subtract(utilityPaymentRequest.getAmount()));
 
         transactionRepository.save(TransactionEntity.builder().transactionType(TransactionType.UTILITY_PAYMENT)
             .account(fromAccount)
@@ -75,6 +78,7 @@ public class TransactionService {
     }
 
     private void validateBalance(BankAccount bankAccount, BigDecimal amount) {
+        // check if account balance is enough to make the transaction
         if (bankAccount.getActualBalance().compareTo(BigDecimal.ZERO) < 0 || bankAccount.getActualBalance().compareTo(amount) < 0) {
             throw new InsufficientFundsException("Insufficient funds in the account " + bankAccount.getNumber(), GlobalErrorCode.INSUFFICIENT_FUNDS);
         }
@@ -88,7 +92,7 @@ public class TransactionService {
         BankAccountEntity toBankAccountEntity = bankAccountRepository.findByNumber(toBankAccount.getNumber()).orElseThrow(EntityNotFoundException::new);
 
         fromBankAccountEntity.setActualBalance(fromBankAccountEntity.getActualBalance().subtract(amount));
-        fromBankAccountEntity.setAvailableBalance(fromBankAccountEntity.getActualBalance().subtract(amount));
+        fromBankAccountEntity.setAvailableBalance(fromBankAccountEntity.getAvailableBalance().subtract(amount));
         bankAccountRepository.save(fromBankAccountEntity);
 
         transactionRepository.save(TransactionEntity.builder().transactionType(TransactionType.FUND_TRANSFER)
@@ -97,7 +101,7 @@ public class TransactionService {
             .account(fromBankAccountEntity).amount(amount.negate()).build());
 
         toBankAccountEntity.setActualBalance(toBankAccountEntity.getActualBalance().add(amount));
-        toBankAccountEntity.setAvailableBalance(toBankAccountEntity.getActualBalance().add(amount));
+        toBankAccountEntity.setAvailableBalance(toBankAccountEntity.getAvailableBalance().add(amount));
         bankAccountRepository.save(toBankAccountEntity);
 
         transactionRepository.save(TransactionEntity.builder().transactionType(TransactionType.FUND_TRANSFER)

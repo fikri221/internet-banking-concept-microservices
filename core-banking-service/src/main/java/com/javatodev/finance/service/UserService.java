@@ -21,11 +21,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    // read user by identification number
     public User readUser(String identification) {
         UserEntity userEntity = userRepository.findByIdentificationNumber(identification).orElseThrow(EntityNotFoundException::new);
         return userMapper.convertToDto(userEntity);
     }
 
+    // read all users
     public List<User> readUsers(Pageable pageable) {
         return userMapper.convertToDtoList(userRepository.findAll(pageable).getContent());
     }

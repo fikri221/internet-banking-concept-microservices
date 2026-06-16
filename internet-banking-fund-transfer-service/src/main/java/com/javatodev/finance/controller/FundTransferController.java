@@ -22,12 +22,14 @@ public class FundTransferController {
 
     private final FundTransferService fundTransferService;
 
+    // send fund transfer to another account
     @PostMapping
     public ResponseEntity sendFundTransfer(@RequestBody FundTransferRequest fundTransferRequest) {
         log.info("Got fund transfer request from API {}", fundTransferRequest.toString());
         return ResponseEntity.ok(fundTransferService.fundTransfer(fundTransferRequest));
     }
 
+    // read all fund transfers
     @GetMapping
     public ResponseEntity readFundTransfers(Pageable pageable) {
         log.info("Reading fund transfers from core");

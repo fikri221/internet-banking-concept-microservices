@@ -24,16 +24,19 @@ public class AccountService {
     private final BankAccountRepository bankAccountRepository;
     private final UtilityAccountRepository utilityAccountRepository;
 
+    // read bank account by account number
     public BankAccount readBankAccount(String accountNumber) {
         BankAccountEntity entity = bankAccountRepository.findByNumber(accountNumber).orElseThrow(EntityNotFoundException::new);
         return bankAccountMapper.convertToDto(entity);
     }
 
+    // read utility account by provider name
     public UtilityAccount readUtilityAccount(String provider) {
         UtilityAccountEntity utilityAccountEntity = utilityAccountRepository.findByProviderName(provider).orElseThrow(EntityNotFoundException::new);
         return utilityAccountMapper.convertToDto(utilityAccountEntity);
     }
 
+    // read utility account by id
     public UtilityAccount readUtilityAccount(Long id) {
         return utilityAccountMapper.convertToDto(utilityAccountRepository.findById(id).orElseThrow(EntityNotFoundException::new));
     }
