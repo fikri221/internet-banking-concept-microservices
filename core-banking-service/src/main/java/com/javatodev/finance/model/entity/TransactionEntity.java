@@ -5,6 +5,7 @@ import com.javatodev.finance.model.TransactionType;
 import java.math.BigDecimal;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "banking_core_transaction")
+@AllArgsConstructor
 public class TransactionEntity {
 
     @Id
@@ -33,4 +35,7 @@ public class TransactionEntity {
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private BankAccountEntity account;
 
+    public TransactionEntity() {
+
+    }
 }
