@@ -28,6 +28,7 @@ public class UtilityPaymentService {
 
     private UtilityPaymentMapper utilityPaymentMapper = new UtilityPaymentMapper();
 
+    // utility payment processing
     public UtilityPaymentResponse utilPayment(UtilityPaymentRequest paymentRequest) {
         log.info("Utility payment processing {}", paymentRequest.toString());
 
@@ -36,14 +37,21 @@ public class UtilityPaymentService {
         entity.setStatus(TransactionStatus.PROCESSING);
         UtilityPaymentEntity optUtilPayment = utilityPaymentRepository.save(entity);
 
-        UtilityPaymentResponse utilityPaymentResponse = bankingCoreRestClient.utilityPayment(paymentRequest);
-        log.info("Transaction response {}", utilityPaymentResponse.toString());
+        try {
+            UtilityPaymentResponse utilityPaymentResponse = bankingCoreRestClient.utilityPayment(paymentRequest);
+            log.info("Transaction response {}", utilityPaymentResponse.toString());
 
-        optUtilPayment.setStatus(TransactionStatus.SUCCESS);
-        optUtilPayment.setTransactionId(utilityPaymentResponse.getTransactionId());
-        utilityPaymentRepository.save(optUtilPayment);
+            optUtilPayment.setStatus(TransactionStatus.SUCCESS);
+            optUtilPayment.setTransactionId(utilityPaymentResponse.getTransactionId());
+            utilityPaymentRepository.save(optUtilPayment);
 
-        return UtilityPaymentResponse.builder().message("Utility Payment Successfully Processed").transactionId(utilityPaymentResponse.getTransactionId()).build();
+            return UtilityPaymentResponse.builder().message("Utility Payment Successfully Processed").transactionId(utilityPaymentResponse.getTransactionId()).build();
+        } catch (Exception e) {
+            log.error("Utility payment failed", e);
+            optUtilPayment.setStatus(TransactionStatus.FAILED);
+            utilityPaymentRepository.save(optUtilPayment);
+            throw e;
+        }
     }
 
     public List<UtilityPayment> readPayments(Pageable pageable) {

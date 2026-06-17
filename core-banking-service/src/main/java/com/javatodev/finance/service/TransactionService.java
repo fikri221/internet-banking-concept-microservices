@@ -105,7 +105,8 @@ public class TransactionService {
         bankAccountRepository.save(toBankAccountEntity);
 
         transactionRepository.save(TransactionEntity.builder().transactionType(TransactionType.FUND_TRANSFER)
-            .referenceNumber(toBankAccountEntity.getNumber())
+                // untuk transaksi penerima, gunakan norek pengirim sebagai referensi
+            .referenceNumber(fromBankAccountEntity.getNumber())
             .transactionId(transactionId)
             .account(toBankAccountEntity).amount(amount).build());
 

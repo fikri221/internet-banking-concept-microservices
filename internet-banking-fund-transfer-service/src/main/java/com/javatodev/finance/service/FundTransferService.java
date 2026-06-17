@@ -36,14 +36,20 @@ public class FundTransferService {
         entity.setStatus(TransactionStatus.PENDING);
         FundTransferEntity optFundTransfer = fundTransferRepository.save(entity);
 
-        FundTransferResponse fundTransferResponse = bankingCoreFeignClient.fundTransfer(request);
-        optFundTransfer.setTransactionReference(fundTransferResponse.getTransactionId());
-        optFundTransfer.setStatus(TransactionStatus.SUCCESS);
-        fundTransferRepository.save(optFundTransfer);
+        try {
+            FundTransferResponse fundTransferResponse = bankingCoreFeignClient.fundTransfer(request);
+            optFundTransfer.setTransactionReference(fundTransferResponse.getTransactionId());
+            optFundTransfer.setStatus(TransactionStatus.SUCCESS);
+            fundTransferRepository.save(optFundTransfer);
 
-        fundTransferResponse.setMessage("Fund Transfer Successfully Completed");
-        return fundTransferResponse;
-
+            fundTransferResponse.setMessage("Fund Transfer Successfully Completed");
+            return fundTransferResponse;
+        } catch (Exception e) {
+            log.error("Fund transfer failed", e);
+            optFundTransfer.setStatus(TransactionStatus.FAILED);
+            fundTransferRepository.save(optFundTransfer);
+            throw e;
+        }
     }
 
     public List<FundTransfer> readAllTransfers(Pageable pageable) {
