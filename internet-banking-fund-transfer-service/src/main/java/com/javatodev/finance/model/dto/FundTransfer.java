@@ -12,4 +12,5 @@ public class FundTransfer extends AuditAware {
     private String fromAccount;
     private String toAccount;
     private BigDecimal amount;
+    private String idempotencyKey;
 }

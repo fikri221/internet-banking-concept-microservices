@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +29,21 @@ public class FundTransferService {
 
     private final FundTransferMapper mapper = new FundTransferMapper();
 
-    public FundTransferResponse fundTransfer(FundTransferRequest request) {
+    public FundTransferResponse fundTransfer(FundTransferRequest request, String idempotencyKey) {
         log.info("Sending fund transfer request {}", request.toString());
+
+        Optional<FundTransferEntity> optionalKey = fundTransferRepository.findByIdempotencyKey(idempotencyKey);
+        String tempIdempotencyKey;
+        if (optionalKey.isPresent()) {
+            throw new RuntimeException("Idempotency Key already exists");
+        } else {
+            tempIdempotencyKey = idempotencyKey;
+        }
 
         FundTransferEntity entity = new FundTransferEntity();
         BeanUtils.copyProperties(request, entity);
         entity.setStatus(TransactionStatus.PENDING);
+        entity.setIdempotencyKey(tempIdempotencyKey);
         FundTransferEntity optFundTransfer = fundTransferRepository.save(entity);
 
         try {
