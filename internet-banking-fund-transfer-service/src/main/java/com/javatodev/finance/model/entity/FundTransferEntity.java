@@ -4,6 +4,7 @@ import com.javatodev.finance.model.TransactionStatus;
 import com.javatodev.finance.model.dto.AuditAware;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,6 +27,9 @@ public class FundTransferEntity extends AuditAware {
 
     @Column(name = "idempotency_key", unique = true)
     private String idempotencyKey;
+
+    @Column(name = "locked_at")
+    private LocalDateTime lockedAt;
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
