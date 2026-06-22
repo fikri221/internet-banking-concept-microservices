@@ -2,6 +2,8 @@ package com.javatodev.finance.controller;
 
 import com.javatodev.finance.model.dto.request.FundTransferRequest;
 import com.javatodev.finance.model.dto.request.UtilityPaymentRequest;
+import com.javatodev.finance.model.dto.response.FundTransferResponse;
+import com.javatodev.finance.model.dto.response.UtilityPaymentResponse;
 import com.javatodev.finance.service.TransactionService;
 
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("/fund-transfer")
-    public ResponseEntity fundTransfer(@RequestBody FundTransferRequest fundTransferRequest) {
+    public ResponseEntity<FundTransferResponse> fundTransfer(@RequestBody FundTransferRequest fundTransferRequest) {
 
         log.info("Fund transfer initiated in core bank from {}", fundTransferRequest.toString());
         return ResponseEntity.ok(transactionService.fundTransfer(fundTransferRequest));
@@ -30,7 +32,7 @@ public class TransactionController {
     }
 
     @PostMapping("/util-payment")
-    public ResponseEntity utilPayment(@RequestBody UtilityPaymentRequest utilityPaymentRequest) {
+    public ResponseEntity<UtilityPaymentResponse> utilPayment(@RequestBody UtilityPaymentRequest utilityPaymentRequest) {
 
         log.info("Utility Payment initiated in core bank from {}", utilityPaymentRequest.toString());
         return ResponseEntity.ok(transactionService.utilPayment(utilityPaymentRequest));
