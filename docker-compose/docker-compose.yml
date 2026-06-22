@@ -15,7 +15,7 @@ services:
     depends_on:
       - keycloakdb
     ports:
-      - 8080:8080
+      - "8080:8080"
 
   keycloakdb:
     image: postgres:15
@@ -32,9 +32,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - mysqldata:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq_banking
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 volumes:
   postgres_data:

@@ -391,12 +391,12 @@
 				"oauth2": [
 					{
 						"key": "password",
-						"value": "123",
+						"value": "P@ssw0rd",
 						"type": "string"
 					},
 					{
 						"key": "username",
-						"value": "super-user",
+						"value": "admin",
 						"type": "string"
 					},
 					{
@@ -406,7 +406,7 @@
 					},
 					{
 						"key": "grant_type",
-						"value": "password_credentials",
+						"value": "password",
 						"type": "string"
 					},
 					{
@@ -421,7 +421,7 @@
 					},
 					{
 						"key": "accessTokenUrl",
-						"value": "{{keycloack_host}}/auth/realms/{{keycloack_realm}}/protocol/openid-connect/token",
+						"value": "{{keycloack_host}}/realms/{{keycloack_realm}}/protocol/openid-connect/token",
 						"type": "string"
 					},
 					{
@@ -433,6 +433,26 @@
 						"key": "addTokenTo",
 						"value": "header",
 						"type": "string"
+					},
+					{
+						"key": "auth_url",
+						"value": "{{keycloack_host}}/realms/{{keycloack_realm}}/protocol/openid-connect/auth",
+						"type": "string"
+					},
+					{
+						"key": "redirect_uri",
+						"value": "",
+						"type": "string"
+					},
+					{
+						"key": "client_authentication",
+						"value": "body",
+						"type": "string"
+					},
+					{
+						"key": "useBrowser",
+						"value": false,
+						"type": "boolean"
 					}
 				]
 			},

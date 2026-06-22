@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: internet-banking-user-service
+  threads:
+    virtual:
+      enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/banking_core_user_service
     username: root
@@ -15,3 +18,20 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8081/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  config:
+    keycloak:
+      server-url: http://localhost:8080/auth
+      realm: javatodev-internet-banking
+      clientId: internet-banking-api-client
+      client-secret: Efz3s4JdrNsA8E4z4P0RIQZUpck3VB0e

@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: core-banking-service
+  threads:
+    virtual:
+      enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/banking_core_service
     username: root
@@ -15,3 +18,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8081/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: always

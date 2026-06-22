@@ -3,6 +3,37 @@ server:
 spring:
   application:
     name: internet-banking-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: internet-banking-user-service
+          uri: lb://internet-banking-user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user/(?<segment>.*), /$\{segment}
+        - id: internet-banking-fund-transfer-service
+          uri: lb://internet-banking-fund-transfer-service
+          predicates:
+            - Path=/fund-transfer/**
+          filters:
+            - RewritePath=/fund-transfer/(?<segment>.*), /$\{segment}
+        - id: core-banking-service
+          uri: lb://core-banking-service
+          predicates:
+            - Path=/core/**
+          filters:
+            - RewritePath=/core/(?<segment>.*), /$\{segment}
+        - id: internet-banking-utility-payment-service
+          uri: lb://internet-banking-utility-payment-service
+          predicates:
+            - Path=/payment/**
+          filters:
+            - RewritePath=/payment/(?<segment>.*), /$\{segment}
   security:
     oauth2:
       resourceserver:
