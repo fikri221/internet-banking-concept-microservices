@@ -1,5 +1,6 @@
 package com.javatodev.finance.controller;
 
+import com.javatodev.finance.model.dto.User;
 import com.javatodev.finance.service.UserService;
 
 import org.springframework.context.MessageSource;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/v1/user")
@@ -23,12 +26,12 @@ public class UserController {
     private final MessageSource messageSource;
 
     @GetMapping(value = "/{identification}")
-    public ResponseEntity readUser(@PathVariable("identification") String identification) {
+    public ResponseEntity<User> readUser(@PathVariable String identification) {
         return ResponseEntity.ok(userService.readUser(identification));
     }
 
     @GetMapping
-    public ResponseEntity readUsers(Pageable pageable) {
+    public ResponseEntity<List<User>> readUsers(Pageable pageable) {
         return ResponseEntity.ok(userService.readUsers(pageable));
     }
 
