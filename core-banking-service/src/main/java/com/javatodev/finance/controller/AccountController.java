@@ -1,5 +1,7 @@
 package com.javatodev.finance.controller;
 
+import com.javatodev.finance.model.dto.BankAccount;
+import com.javatodev.finance.model.dto.UtilityAccount;
 import com.javatodev.finance.service.AccountService;
 
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,13 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/bank-account/{account_number}")
-    public ResponseEntity getBankAccount(@PathVariable("account_number") String accountNumber) {
+    public ResponseEntity<BankAccount> getBankAccount(@PathVariable("account_number") String accountNumber) {
         log.info("Reading account by ID {}", accountNumber);
         return ResponseEntity.ok(accountService.readBankAccount(accountNumber));
     }
 
     @GetMapping("/util-account/{account_name}")
-    public ResponseEntity getUtilityAccount(@PathVariable("account_name") String providerName) {
+    public ResponseEntity<UtilityAccount> getUtilityAccount(@PathVariable("account_name") String providerName) {
         log.info("Reading utitlity account by ID {}", providerName);
         return ResponseEntity.ok(accountService.readUtilityAccount(providerName));
     }

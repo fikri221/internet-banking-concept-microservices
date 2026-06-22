@@ -1,12 +1,15 @@
 package com.javatodev.finance.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javatodev.finance.model.TransactionStatus;
 import com.javatodev.finance.model.dto.FundTransfer;
 import com.javatodev.finance.model.dto.request.FundTransferRequest;
 import com.javatodev.finance.model.dto.response.FundTransferResponse;
 import com.javatodev.finance.model.entity.FundTransferEntity;
+import com.javatodev.finance.model.entity.OutboxEventEntity;
 import com.javatodev.finance.model.mapper.FundTransferMapper;
 import com.javatodev.finance.model.repository.FundTransferRepository;
+import com.javatodev.finance.model.repository.OutboxEventRepository;
 import com.javatodev.finance.service.rest.client.BankingCoreFeignClient;
 
 import org.springframework.beans.BeanUtils;
@@ -30,9 +33,11 @@ public class FundTransferService {
     public static final Long IDEMPOTENCY_KEY_LOCK_TIMEOUT_IN_SECONDS = 10L; // 10 seconds
 
     private final FundTransferRepository fundTransferRepository;
+    private final OutboxEventRepository outboxEventRepository;
     private final BankingCoreFeignClient bankingCoreFeignClient;
 
     private final FundTransferMapper mapper = new FundTransferMapper();
+    private final ObjectMapper objectMapper;
 
     @Transactional
     public FundTransferResponse fundTransfer(FundTransferRequest request, String idempotencyKey) {
@@ -77,6 +82,14 @@ public class FundTransferService {
             optFundTransfer.setTransactionReference(fundTransferResponse.getTransactionId());
             optFundTransfer.setStatus(TransactionStatus.SUCCESS);
             fundTransferRepository.save(optFundTransfer);
+
+            OutboxEventEntity outboxEvent = new OutboxEventEntity();
+            outboxEvent.setAggregateId(optFundTransfer.getTransactionReference());
+            outboxEvent.setAggregateType("FUND_TRANSFER");
+            outboxEvent.setType("TRANSFER_SUCCESS");
+            outboxEvent.setPayload(objectMapper.writeValueAsString(mapper.convertToDto(optFundTransfer)));
+            outboxEvent.setStatus("PENDING");
+            outboxEventRepository.save(outboxEvent);
 
             fundTransferResponse.setMessage("Fund Transfer Successfully Completed");
             return fundTransferResponse;
