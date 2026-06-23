@@ -4,6 +4,7 @@ import com.javatodev.finance.model.entity.OutboxEventEntity;
 import com.javatodev.finance.model.repository.OutboxEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OutboxEventPublisher {
     private final OutboxEventRepository outboxEventRepository;
+    private final RabbitTemplate rabbitTemplate;
 
     @Scheduled(fixedDelay = 5000) // Run every 5 seconds
     @Transactional
@@ -34,7 +36,8 @@ public class OutboxEventPublisher {
         for (OutboxEventEntity event : pendingEvents) {
             try {
                 // 2. SEND EVENT TO QUEUE SIMULATION (change into RabbitMQ Template later)
-                log.info(">> [RABBITMQ SIMULATION] Mengirim pesan ke broker: {}", event.getPayload());
+//                log.info(">> [RABBITMQ SIMULATION] Mengirim pesan ke broker: {}", event.getPayload());
+                rabbitTemplate.convertAndSend(event.getDestination(), event.getPayload());
 
                 // 3. Update the status to SUCCESS if the event is successfully sent
                 event.setStatus("SUCCESS");

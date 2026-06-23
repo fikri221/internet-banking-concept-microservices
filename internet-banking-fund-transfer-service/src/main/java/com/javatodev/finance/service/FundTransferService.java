@@ -88,6 +88,7 @@ public class FundTransferService {
             outboxEvent.setAggregateType("FUND_TRANSFER");
             outboxEvent.setType("TRANSFER_SUCCESS");
             outboxEvent.setPayload(objectMapper.writeValueAsString(mapper.convertToDto(optFundTransfer)));
+            outboxEvent.setDestination("fund-transfer-events");
             outboxEvent.setStatus("PENDING");
             outboxEventRepository.save(outboxEvent);
 

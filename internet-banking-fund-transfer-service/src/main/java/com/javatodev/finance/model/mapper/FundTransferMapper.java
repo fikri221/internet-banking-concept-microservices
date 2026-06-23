@@ -20,6 +20,11 @@ public class FundTransferMapper extends BaseMapper<FundTransferEntity, FundTrans
         FundTransfer dto = new FundTransfer();
         if (entity != null) {
             BeanUtils.copyProperties(entity, dto);
+
+            // Convert enum to string
+            if (entity.getStatus() != null) {
+                dto.setStatus(entity.getStatus().name());
+            }
         }
         return dto;
     }

@@ -22,6 +22,7 @@ public class OutboxEventEntity {
     private String aggregateType; // e.g = "FUND_TRANSFER""
     private String aggregateId; // e.g = "Transaction ID"
     private String type; // e.g = "TRANSFER_SUCCESS"
+    private String destination; // e.g. = "exchange-name" or "queue-name"
 
     @Column(columnDefinition = "TEXT")
     private String payload; // Data transaction in JSON format
