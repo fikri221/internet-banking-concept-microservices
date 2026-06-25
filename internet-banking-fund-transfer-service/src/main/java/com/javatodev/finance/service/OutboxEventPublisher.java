@@ -36,8 +36,8 @@ public class OutboxEventPublisher {
         for (OutboxEventEntity event : pendingEvents) {
             try {
                 // 2. SEND EVENT TO QUEUE SIMULATION (change into RabbitMQ Template later)
-//                log.info(">> [RABBITMQ SIMULATION] Mengirim pesan ke broker: {}", event.getPayload());
-                rabbitTemplate.convertAndSend(event.getDestination(), event.getPayload());
+                // log.info(">> [RABBITMQ SIMULATION] Mengirim pesan ke broker: {}", event.getPayload());
+                rabbitTemplate.convertAndSend(event.getDestination(), event.getType(), event.getPayload());
 
                 // 3. Update the status to SUCCESS if the event is successfully sent
                 event.setStatus("SUCCESS");
