@@ -1,0 +1,244 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 268435456 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3717), pid=24916, tid=24972
+#
+# JRE version:  (21.0.11+10) (build )
+# Java VM: OpenJDK 64-Bit Server VM (21.0.11+10-LTS, mixed mode, emulated-client, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:TieredStopAtLevel=1 -Dfile.encoding=UTF-8 -Duser.country=ID -Duser.language=en -Duser.variant com.javatodev.finance.InternetBankingFundTransferServiceApplication
+
+Host: AMD Ryzen 5 5600X 6-Core Processor             , 12 cores, 15G,  Windows 11 , 64 bit Build 26100 (10.0.26100.8328)
+Time: Tue Jun 16 02:20:03 2026 SE Asia Standard Time elapsed time: 1.110599 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001a7ea9f1d10):  JavaThread "Unknown thread" [_thread_in_vm, id=24972, stack(0x0000007a01000000,0x0000007a01100000) (1024K)]
+
+Stack: [0x0000007a01000000,0x0000007a01100000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6e0429]  (no source info available)
+V  [jvm.dll+0x8c057b]  (no source info available)
+V  [jvm.dll+0x8c2b0a]  (no source info available)
+V  [jvm.dll+0x8c31e3]  (no source info available)
+V  [jvm.dll+0x28ac66]  (no source info available)
+V  [jvm.dll+0x6df8d5]  (no source info available)
+V  [jvm.dll+0x6d36aa]  (no source info available)
+V  [jvm.dll+0x367b8e]  (no source info available)
+V  [jvm.dll+0x36fa5b]  (no source info available)
+V  [jvm.dll+0x3c1539]  (no source info available)
+V  [jvm.dll+0x3c17db]  (no source info available)
+V  [jvm.dll+0x33b447]  (no source info available)
+V  [jvm.dll+0x33bf8b]  (no source info available)
+V  [jvm.dll+0x88aaae]  (no source info available)
+V  [jvm.dll+0x3ce491]  (no source info available)
+V  [jvm.dll+0x8739bc]  (no source info available)
+V  [jvm.dll+0x4620a1]  (no source info available)
+V  [jvm.dll+0x463ce1]  (no source info available)
+C  [jli.dll+0x52f8]  (no source info available)
+C  [ucrtbase.dll+0x37b0]  (no source info available)
+C  [KERNEL32.DLL+0x2e957]  (no source info available)
+C  [ntdll.dll+0x427c]  (no source info available)
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffd4a3e7288, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000001a7ecf92060 WorkerThread "GC Thread#0"                     [id=24976, stack(0x0000007a01100000,0x0000007a01200000) (1024K)]
+  0x000001a7ecfa4db0 ConcurrentGCThread "G1 Main Marker"            [id=24980, stack(0x0000007a01200000,0x0000007a01300000) (1024K)]
+  0x000001a7ecfa6060 WorkerThread "G1 Conc#0"                       [id=24984, stack(0x0000007a01300000,0x0000007a01400000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffd49addf07]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007ffd4a45b9b0] Heap_lock - owner thread: 0x000001a7ea9f1d10
+
+Heap address: 0x0000000701200000, size: 4078 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 16 size 48 Howl #buckets 8 coarsen threshold 3686 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 4096
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000701200000, 0x0000000800000000)
+  region size 2048K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffd49ecd3c9]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.005 Loaded shared library C:\Users\ASUS\.jdks\ms-21.0.11\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7bbeb0000 - 0x00007ff7bbebe000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\java.exe
+0x00007ffdeb580000 - 0x00007ffdeb7e7000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffdea560000 - 0x00007ffdea629000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffde81f0000 - 0x00007ffde85e7000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffde8620000 - 0x00007ffde876b000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffdcfc40000 - 0x00007ffdcfc58000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\jli.dll
+0x00007ffdcfc20000 - 0x00007ffdcfc3e000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\VCRUNTIME140.dll
+0x00007ffde9e20000 - 0x00007ffde9fe6000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffdd7130000 - 0x00007ffdd73c2000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.8457_none_3e0b2faee331e92d\COMCTL32.dll
+0x00007ffde85f0000 - 0x00007ffde8617000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffdea4a0000 - 0x00007ffdea4cb000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffde9930000 - 0x00007ffde99d9000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffde8820000 - 0x00007ffde894c000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffde8950000 - 0x00007ffde89f3000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffde98f0000 - 0x00007ffde9922000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffdd9f80000 - 0x00007ffdd9f8c000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\vcruntime140_1.dll
+0x00007ffd95230000 - 0x00007ffd952b9000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\msvcp140.dll
+0x00007ffd49790000 - 0x00007ffd4a53e000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\server\jvm.dll
+0x00007ffde9ca0000 - 0x00007ffde9d56000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffde9a10000 - 0x00007ffde9ab7000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffdea380000 - 0x00007ffdea498000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffdea4d0000 - 0x00007ffdea550000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffde7e30000 - 0x00007ffde7e8e000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffdd9bb0000 - 0x00007ffdd9bbb000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffddf870000 - 0x00007ffddf8a6000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffde7e10000 - 0x00007ffde7e24000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffde6d10000 - 0x00007ffde6d2b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffdd5d10000 - 0x00007ffdd5d1a000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\jimage.dll
+0x00007ffddeab0000 - 0x00007ffddecf2000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffde9ff0000 - 0x00007ffdea373000 	C:\WINDOWS\System32\combase.dll
+0x00007ffdea810000 - 0x00007ffdea8e9000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffdd5c10000 - 0x00007ffdd5c4b000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffde8770000 - 0x00007ffde8818000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffdc5940000 - 0x00007ffdc5961000 	C:\Users\ASUS\.jdks\ms-21.0.11\bin\java.dll
+
+JVMTI agents: none
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\ASUS\.jdks\ms-21.0.11\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.8457_none_3e0b2faee331e92d;C:\Users\ASUS\.jdks\ms-21.0.11\bin\server
+
+VM Arguments:
+jvm_args: -XX:TieredStopAtLevel=1 -Dfile.encoding=UTF-8 -Duser.country=ID -Duser.language=en -Duser.variant 
+java_command: com.javatodev.finance.InternetBankingFundTransferServiceApplication
+java_class_path (initial): D:\Projects\internet-banking-concept-microservices-v.2.0.0\internet-banking-fund-transfer-service\build\classes\java\main;D:\Projects\internet-banking-concept-microservices-v.2.0.0\internet-banking-fund-transfer-service\build\resources\main;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-openfeign\4.1.0\1ec867ae2e6f9f0bf06b8b65bc79df0b7573f7a3\spring-cloud-starter-openfeign-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-netflix-eureka-client\4.1.0\66077e7c4198db4c351391dd2e96399cff857f47\spring-cloud-starter-netflix-eureka-client-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-config\4.1.0\728c5582b0e142d8bd61d9fc82904e45b8544569\spring-cloud-starter-config-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-bootstrap\4.1.0\a28e97956b2f17a759bdac4f1fe52aaa4895a0af\spring-cloud-starter-bootstrap-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.mysql\mysql-connector-j\8.4.0\b1bc0f47bcad26ad5f9bceefb63fcb920d868fca\mysql-connector-j-8.4.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-openfeign-core\4.1.0\a8d8db55ffddb83ce8a8e3b2da115e7793c75f61\spring-cloud-openfeign-core-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter-loadbalancer\4.1.0\7171ee414a7832fc7bfbfa5c69dcb035b3bec3d2\spring-cloud-starter-loadbalancer-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-starter\4.1.0\8558f5e64af9abbab030ff25654cbbc9d6892d72\spring-cloud-starter-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-actuator-autoconfigure\3.2.4\fc5d94aa9b147786d60379f7365cb4bf6766cdad\spring-boot-actuator-autoconfigure-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-jakarta9\1.12.4\354b0798834e415a64f16125e27a1a7e5dc0aee4\micrometer-jakarta9-1.12.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-webmvc\6.1.5\92809fce136e0b662dc9325529443386ba5ec2c6\spring-webmvc-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-config-client\4.1.0\8cd0713ef875da182193399640c01a126133befc\spring-cloud-config-client-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.github.openfeign.form\feign-form-spring\3.8.0\71059f6e16ddbaf0e42f1b1aa0bb60cc2f823e4d\feign-form-spring-3.8.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-web\6.1.5\4f4e92cc52ee33260f1ee0cdc7b7a2f22d49708c\spring-web-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-core\1.12.4\d5b91e2847de7c1213889c532789743eb2f96337\micrometer-core-1.12.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.data\spring-data-jpa\3.2.4\1932f90c487999575b57ad41986de96c8ebf5843\spring-data-jpa-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-autoconfigure\3.2.4\b3f481aff8f0775f44d78399c804a8c52d75b971\spring-boot-autoconfigure-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-actuator\3.2.4\9921454129e42a4c6806240885ed763eb874cd24\spring-boot-actuator-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot\3.2.4\ccb7cbb30dcf1d91dbbf20a3219a457eead46601\spring-boot-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-context-support\6.1.5\38f29233f0acff569e26dcf9ec7c0aa11dc023a\spring-context-support-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-context\6.1.5\735d1bd7372d7c53e7b31b4a9c980ce2e0b26424\spring-context-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-observation\1.12.4\492deebbd9b8ab23f588428f66578e21af266e01\micrometer-observation-1.12.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.hibernate.orm\hibernate-core\6.4.4.Final\5c9decb3c5a70bf7801d41fc32633416c26be069\hibernate-core-6.4.4.Final.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aspects\6.1.5\202d9da55e24fec2eda80bbc3cd87fbefc0e1256\spring-aspects-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-loadbalancer\4.1.0\a85c2102a320228b8d196a1bdacf9af06bb9e1dc\spring-cloud-loadbalancer-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-commons\4.1.0\4b9d72e2e8326de7d200d54111e924e5be73db54\spring-cloud-commons-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.github.openfeign\feign-slf4j\13.1\95e0c3035872cccdbb90a852249f6d2719e1dfc6\feign-slf4j-13.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.github.openfeign\feign-core\13.1\3202d25687f1b4d51e4c1aec291e54e385683751\feign-core-13.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-netflix-eureka-client\4.1.0\4d04e44ab9cd3ec8ad9be3017328c623a356538b\spring-cloud-netflix-eureka-client-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.netflix.eureka\eureka-core\2.0.1\c6b08ac4e05fd56a93823c53cb4f7052631135cb\eureka-core-2.0.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.netflix.eureka\eureka-client\2.0.1\4f81f1bc22afc1390febbda4a711b35dd4327e68\eureka-client-2.0.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.15.4\694777f182334a21bf1aeab1b04cc4398c801f3f\jackson-datatype-jdk8-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-parameter-names\2.15.4\e654497a08359db2521b69b5f710e00836915d8c\jackson-module-parameter-names-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.15.4\5223ea5a9bf52cdc9c5e537a0e52f2432eaf208b\jackson-annotations-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.15.4\aebe84b45360debad94f692a4074c6aceb535fa0\jackson-core-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jsr310\2.15.4\7de629770a4559db57128d35ccae7d2fddd35db3\jackson-datatype-jsr310-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.15.4\560309fc381f77d4d15c4a4cdaa0db5025c4fd13\jackson-databind-2.15.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.annotation\jakarta.annotation-api\2.1.1\48b9bda22b091b1f48b13af03fe36db3be6e1ae3\jakarta.annotation-api-2.1.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aop\6.1.5\a4f596bd3c55b6cec93f0e2e7245dd0bab8afec3\spring-aop-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-orm\6.1.5\d2dc2b996680fcc8ae5aea294f0ce6bda5577c7c\spring-orm-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-jdbc\6.1.5\e8617dcddd3377c809b3e62c325fcb923163cb20\spring-jdbc-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.data\spring-data-commons\3.2.4\c934470822afb9f0751915b229d6fe28ff5e1ac2\spring-data-commons-3.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-tx\6.1.5\90e95f4c3e30f9ecaef6ba53186ed21afebba618\spring-tx-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-beans\6.1.5\9ae967f467281c9bb977585ef4d5ea7351704d60\spring-beans-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-expression\6.1.5\7e21cb1c6bbef1509e12d485b75ffc61278d9fa7\spring-expression-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-core\6.1.5\6dae1b06ffacbb9abab636be2dbc6acd3b6e5d68\spring-core-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.yaml\snakeyaml\2.2\3af797a25458550a16bf89acc8e4ab2b7f2bfce0\snakeyaml-2.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-commons\1.12.4\a57f10c78956b38087f97beae66cf14cb8b08d34\micrometer-commons-1.12.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-websocket\10.1.19\adf4710fac2471236f8a466ca678cdf7e6a8257c\tomcat-embed-websocket-10.1.19.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-core\10.1.19\3dbbca8acbd4dd6a137c3d6f934a2931512b42ce\tomcat-embed-core-10.1.19.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-el\10.1.19\c61a582c391aca130884a5421deedfe1a96c7415\tomcat-embed-el-10.1.19.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.aspectj\aspectjweaver\1.9.21\beaabaea95c7f3330f415c72ee0ffe79b51d172f\aspectjweaver-1.9.21.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.zaxxer\HikariCP\5.0.1\a74c7f0a37046846e88d54f7cb6ea6d565c65f9c\HikariCP-5.0.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.persistence\jakarta.persistence-api\3.1.0\66901fa1c373c6aff65c13791cc11da72060a8d6\jakarta.persistence-api-3.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.transaction\jakarta.transaction-api\2.0.1\51a520e3fae406abb84e2e1148e6746ce3f80a1a\jakarta.transaction-api-2.0.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.jboss.logging\jboss-logging\3.5.3.Final\c88fc1d8a96d4c3491f55d4317458ccad53ca663\jboss-logging-3.5.3.Final.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.hibernate.common\hibernate-commons-annotations\6.0.6.Final\77a5f94b56d49508e0ee334751db5b78e5ccd50c\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.smallrye\jandex\3.1.2\a6c1c89925c7df06242b03dddb353116ceb9584c\jandex-3.1.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml\classmate\1.6.0\91affab6f84a2182fce5dd72a8d01bc14346dddd\classmate-1.6.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.14.12\6e37f743dc15a8d7a4feb3eb0025cbc612d5b9e1\byte-buddy-1.14.12.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.glassfish.jaxb\jaxb-runtime\4.0.5\ca84c2a7169b5293e232b9d00d1e4e36d4c3914a\jaxb-runtime-4.0.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.glassfish.jaxb\jaxb-core\4.0.5\7b4b11ea5542eea4ad55e1080b23be436795b3\jaxb-core-4.0.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.xml.bind\jakarta.xml.bind-api\4.0.2\6cd5a999b834b63238005b7144136379dc36cad2\jakarta.xml.bind-api-4.0.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.inject\jakarta.inject-api\2.0.1\4c28afe1991a941d7702fe1362c365f0a8641d1e\jakarta.inject-api-2.0.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.antlr\antlr4-runtime\4.13.0\5a02e48521624faaf5ff4d99afc88b01686af655\antlr4-runtime-4.13.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents.client5\httpclient5\5.2.3\5d753a99d299756998a08c488f2efdf9cf26198e\httpclient5-5.2.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.netflix.netflix-commons\netflix-eventbus\0.3.0\3f864adbe81f0849729fcbba3fe693c32be739ea\netflix-eventbus-0.3.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.netflix.servo\servo-core\0.12.21\f56c3bf161217be98fbe4135adf8480590db9c37\servo-core-0.12.21.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-classic\1.4.14\d98bc162275134cdf1518774da4a2a17ef6fb94d\logback-classic-1.4.14.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-to-slf4j\2.21.1\d77b2ba81711ed596cd797cc2b5b5bd7409d841c\log4j-to-slf4j-2.21.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.slf4j\jul-to-slf4j\2.0.12\eb5f48f782b41cc881b0bf1fb4d88ae2ff6d5b93\jul-to-slf4j-2.0.12.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.github.openfeign.form\feign-form\3.8.0\3083889996b18443c275a352d3ab4bc6c8321598\feign-form-3.8.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.netflix.netflix-commons\netflix-infix\0.3.0\acc65969f7367ddd2f1265e0cd7330509ed530dc\netflix-infix-0.3.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.12\48f109a2a6d8f446c794f3e3fa0d86df0cdfa312\slf4j-api-2.0.12.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.cloud\spring-cloud-context\4.1.0\32c784465c4bbc3ba64646940923ec2ed99e6762\spring-cloud-context-4.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-rsa\1.1.1\8fc6284711440b16c3ecaa0fe2f163ffdb0a5027\spring-security-rsa-1.1.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-fileupload\commons-fileupload\1.5\ad4ad2ab2961b4e1891472bd1a33fabefb0385f3\commons-fileupload-1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-crypto\6.2.3\dbe4e299636951e00f18223a1794806d75000e7d\spring-security-crypto-6.2.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.thoughtworks.xstream\xstream\1.4.19\e0e581d812aa92ae12f07234f3398e06af74b112\xstream-1.4.19.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.ws.rs\jakarta.ws.rs-api\3.1.0\15ce10d249a38865b58fc39521f10f29ab0e3363\jakarta.ws.rs-api-3.1.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5.3\d1577ae15f01ef5438c5afc62162457c00a34713\httpclient-4.5.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-configuration\commons-configuration\1.10\2b36e4adfb66d966c5aef2d73deb6be716389dc9\commons-configuration-1.10.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.codehaus.jettison\jettison\1.4.0\8f0e7bb69242e9ed5bfdf7384b37c1095b0974fc\jettison-1.4.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.fasterxml.woodstox\woodstox-core\6.2.1\1600925b1ec7c7a3403c8f068ad62feead13132f\woodstox-core-6.2.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.stoyanr\evictor\1.0.0\d4615a8516dc28cb958e723f1a0902faa8732217\evictor-1.0.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.springframework\spring-jcl\6.1.5\896ae3519327731589c6e77521656b50ae32d5b3\spring-jcl-6.1.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.hdrhistogram\HdrHistogram\2.1.12\6eb7552156e0d517ae80cc2247be1427c8d90452\HdrHistogram-2.1.12.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.latencyutils\LatencyUtils\2.0.3\769c0b82cb2421c8256300e907298a9410a2a3d3\LatencyUtils-2.0.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.eclipse.angus\angus-activation\2.0.2\41f1e0ddd157c856926ed149ab837d110955a9fc\angus-activation-2.0.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\jakarta.activation\jakarta.activation-api\2.1.3\fa165bd70cda600368eee31555222776a46b881f\jakarta.activation-api-2.1.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.bouncycastle\bcprov-jdk18on\1.74\8753dedf57165efdb1a7a69a90fe49a77353efb9\bcprov-jdk18on-1.74.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.11.0\a2503f302b11ebde7ebc3df41daebe0e4eea3689\commons-io-2.11.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents.core5\httpcore5-h2\5.2.4\2872764df7b4857549e2880dd32a6f9009166289\httpcore5-h2-5.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents.core5\httpcore5\5.2.4\34d8332b975f9e9a8298efe4c883ec43d45b7059\httpcore5-5.2.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-math\2.2\4877b85d388275f994a5cfc7eceb73a8045d3006\commons-math-2.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.github.x-stream\mxparser\1.2.2\476fb3b3bb3716cad797cd054ce45f89445794e9\mxparser-1.2.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\19.0\6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9\guava-19.0.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.16\51cf043c87253c9f58b539c9f7e44c8894223850\httpcore-4.4.16.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.16.1\47bd4d333fba53406f6c6c51884ddbca435c8862\commons-codec-1.16.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-lang\commons-lang\2.6\ce1edb914c94ebc388f086c6827e8bdeec71ac2\commons-lang-2.6.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.codehaus.woodstox\stax2-api\4.2.1\a3f7325c52240418c2ba257b103c3c550e140c83\stax2-api-4.2.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.projectreactor.addons\reactor-extra\3.5.1\227cd47421ca0571c662f67428903c5c54777ef1\reactor-extra-3.5.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\io.projectreactor\reactor-core\3.6.4\ef683486f29c4bbd1615abc5a83efc6bad8be871\reactor-core-3.6.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.4.14\4d3c2248219ac0effeb380ed4c5280a80bf395e8\logback-core-1.4.14.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.21.1\74c65e87b9ce1694a01524e192d7be989ba70486\log4j-api-2.21.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.glassfish.jaxb\txw2\4.0.5\f36a4ef12120a9bb06d766d6a0e54b144fd7ed98\txw2-4.0.5.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.sun.istack\istack-commons-runtime\4.1.2\18ec117c85f3ba0ac65409136afa8e42bc74e739\istack-commons-runtime-4.1.2.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\commons-jxpath\commons-jxpath\1.3\c22d7d0f0f40eb7059a23cfa61773a416768b137\commons-jxpath-1.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.3\56498efd17752898cfcc3868c1b6211a07b12b8f\joda-time-2.3.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.antlr\antlr-runtime\3.4\8f011408269a8e42b8548687e137d8eeb56df4b4\antlr-runtime-3.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\xmlpull\xmlpull\1.1.3.1\2b8e230d2ab644e4ecaa94db7cdedbc40c805dfa\xmlpull-1.1.3.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.reactivestreams\reactive-streams\1.0.4\3864a1320d97d7b045f729a326e1e077661f31b7\reactive-streams-1.0.4.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\org.antlr\stringtemplate\3.2.1\59ec8083721eae215c6f3caee944c410d2be34de\stringtemplate-3.2.1.jar;C:\Users\ASUS\.gradle\caches\modules-2\files-2.1\antlr\antlr\2.7.7\83cd2cd674a217ade95a4bb83a8a14f351f48bd0\antlr-2.7.7.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 10                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 268435456                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4276092928                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 4096                                   {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 0                                      {pd product} {ergonomic}
+     bool ProfileInterpreter                       = false                                  {pd product} {command line}
+    uintx ProfiledCodeHeapSize                     = 0                                      {pd product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 4276092928                             {manageable} {ergonomic}
+     intx TieredStopAtLevel                        = 1                                         {product} {command line}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Release file:
+<release file has not been read>
+Environment Variables:
+JAVA_HOME=C:\Users\ASUS\.jdks\ms-21.0.11
+CLASSPATH=D:\Projects\internet-banking-concept-microservices-v.2.0.0\internet-banking-fund-transfer-service\\gradle\wrapper\gradle-wrapper.jar
+PATH=C:\Users\ASUS\.jdks\ms-21.0.11\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\xampp\php;C:\Program Files\Git\cmd;C:\Program Files\Polyspace\R2020a\runtime\win64;C:\Program Files\Polyspace\R2020a\bin;C:\Program Files\Polyspace\R2020a\polyspace\bin;C:\MinGW\bin;C:\laragon\bin\php\php-8.1.3-Win32-vs16-x64;C:\Program Files\apache-maven-3.8.5\bin;C:\Program Files\PostgreSQL\14\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs\;D:\my-commands;C:\laragon\bin;C:\laragon\bin\apache\httpd-2.4.47-win64-VS16\bin;C:\laragon\bin\composer;C:\laragon\bin\git\bin;C:\laragon\bin\git\cmd;C:\laragon\bin\git\mingw64\bin;C:\laragon\bin\git\usr\bin;C:\laragon\bin\laragon\utils;C:\laragon\bin\mysql\mysql-5.7.33-winx64\bin;C:\laragon\bin\nginx\nginx-1.19.10;C:\laragon\bin\ngrok;C:\laragon\bin\nodejs\node-v14;C:\laragon\bin\notepad++;C:\laragon\bin\php\php-7.4.19-Win32-vc15-x64;C:\laragon\bin\redis\redis-x64-3.2.100;C:\laragon\bin\telnet;C:\laragon\usr\bin;C:\Users\ASUS\AppData\Local\Yarn\config\global\node_modules\.bin;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\JetBrains\IntelliJ IDEA 2022.1\bin;;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Users\ASUS\AppData\Roaming\npm;D:\Apps\Antigravity IDE\bin;C:\Users\ASUS\AppData\Local\Programs\Antigravity IDE\bin
+USERNAME=ASUS
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD
+TMP=C:\Users\ASUS\AppData\Local\Temp
+TEMP=C:\Users\ASUS\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.8328)
+OS uptime: 0 days 6:53 hours
+Hyper-V role detected
+
+CPU: total 12 (initial active 12) (12 cores per cpu, 2 threads per core) family 25 model 33 stepping 2 microcode 0xa20120e, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4a, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, hv, rdtscp, rdpid, f16c, cet_ss
+Processor Information for the first 12 processors :
+  Max Mhz: 3701, Current Mhz: 3701, Mhz Limit: 3701
+
+Memory: 4k page, system-wide physical 16309M (693M free)
+TotalPageFile size 28597M (AvailPageFile size 21M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 59M, peak: 315M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.11+10-LTS) for windows-amd64 JRE (21.0.11+10-LTS), built on 2026-04-18T18:13:49Z by "MicrosoftCorporation" with MS VC++ 17.14 (VS2022)
+
+END.

@@ -34,6 +34,12 @@ spring:
             - Path=/payment/**
           filters:
             - RewritePath=/payment/(?<segment>.*), /$\{segment}
+        - id: internet-banking-statement-service
+          uri: lb://internet-banking-statement-service
+          predicates:
+            - Path=/statement/**
+          filters:
+            - RewritePath=/statement/(?<segment>.*), /$\{segment}
   security:
     oauth2:
       resourceserver:

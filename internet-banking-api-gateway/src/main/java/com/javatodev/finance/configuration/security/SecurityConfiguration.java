@@ -29,6 +29,7 @@ public class SecurityConfiguration {
                     .pathMatchers("/fund-transfer/actuator/**").permitAll()
                     .pathMatchers("/banking-core/actuator/**").permitAll()
                     .pathMatchers("/utility-payment/actuator/**").permitAll()
+                    .pathMatchers("/statement/actuator/**").permitAll()
                     .anyExchange().authenticated();
             });
 
