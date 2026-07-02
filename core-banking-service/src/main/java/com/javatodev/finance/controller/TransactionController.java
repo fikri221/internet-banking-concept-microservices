@@ -31,12 +31,11 @@ public class TransactionController {
 
     }
 
-    @PostMapping("/util-payment")
+    @PostMapping("/utility-payment")
     public ResponseEntity<UtilityPaymentResponse> utilPayment(@RequestBody UtilityPaymentRequest utilityPaymentRequest) {
 
         log.info("Utility Payment initiated in core bank from {}", utilityPaymentRequest.toString());
-        return ResponseEntity.ok(transactionService.utilPayment(utilityPaymentRequest));
-
+        return ResponseEntity.ok(transactionService.utilityPayment(utilityPaymentRequest));
     }
 
 }

@@ -48,7 +48,7 @@ public class TransactionService {
     }
 
     // utility payment from one account to another
-    public UtilityPaymentResponse utilPayment(UtilityPaymentRequest utilityPaymentRequest) {
+    public UtilityPaymentResponse utilityPayment(UtilityPaymentRequest utilityPaymentRequest) {
 
         String transactionId = UUID.randomUUID().toString();
 
@@ -74,7 +74,27 @@ public class TransactionService {
 
         return UtilityPaymentResponse.builder().message("Utility payment successfully completed")
             .transactionId(transactionId).build();
+    }
 
+    public UtilityPaymentResponse reversalUtilityPayment(UtilityPaymentRequest utilityPaymentRequest, String transactionId) {
+
+        BankAccount fromBankAccount = accountService.readBankAccount(utilityPaymentRequest.getAccount());
+
+        BankAccountEntity fromAccount = bankAccountRepository.findByNumber(fromBankAccount.getNumber()).get();
+
+        //we can call third party API to process UTIL payment from payment provider from here.
+
+        fromAccount.setActualBalance(fromAccount.getActualBalance().add(utilityPaymentRequest.getAmount()));
+        fromAccount.setAvailableBalance(fromAccount.getAvailableBalance().add(utilityPaymentRequest.getAmount()));
+
+        transactionRepository.save(TransactionEntity.builder().transactionType(TransactionType.REVERSAL_UTILITY_PAYMENT)
+                .account(fromAccount)
+                .transactionId(transactionId)
+                .referenceNumber(utilityPaymentRequest.getReferenceNumber())
+                .amount(utilityPaymentRequest.getAmount()).build());
+
+        return UtilityPaymentResponse.builder().message("Utility payment successfully returned")
+                .transactionId(transactionId).build();
     }
 
     private void validateBalance(BankAccount bankAccount, BigDecimal amount) {

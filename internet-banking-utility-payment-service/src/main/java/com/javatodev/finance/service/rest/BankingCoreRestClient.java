@@ -17,7 +17,7 @@ public interface BankingCoreRestClient {
     @RequestMapping(path = "/api/v1/account/bank-account/{account_number}", method = RequestMethod.GET)
     AccountResponse readAccount(@PathVariable("account_number") String accountNumber);
 
-    @RequestMapping(path = "/api/v1/transaction/util-payment", method = RequestMethod.POST)
+    @RequestMapping(path = "/api/v1/transaction/utility-payment", method = RequestMethod.POST)
     UtilityPaymentResponse utilityPayment(@RequestBody UtilityPaymentRequest paymentRequest);
 
 }

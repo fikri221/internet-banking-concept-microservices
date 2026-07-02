@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +47,13 @@ public class StatementMessageListener {
             String toAccount = jsonNode.get("toAccount").asText();
             BigDecimal amount = new BigDecimal(jsonNode.get("amount").asText());
 
+            // Check if a DEBIT statement already exists for this transaction
+            boolean isDebitExist = statementRepository.existsByTransactionReferenceAndAccountNumber(transactionReference, fromAccount);
+            if (isDebitExist) {
+                log.info("Debit statement already exists for transaction ID: {}", transactionReference);
+                return;
+            }
+
             // 2. Create DEBIT mutation (Money outs) for the SENDER
             StatementEntity debitStatement = new StatementEntity();
             debitStatement.setAccountNumber(fromAccount);
@@ -71,6 +79,8 @@ public class StatementMessageListener {
             statementRepository.save(creditStatement);
 
             log.info("Statement saved successfully for transaction ID: {}", transactionReference);
+        } catch (DataIntegrityViolationException e) {
+            log.warn("Duplicate message detected from RabbitMQ for transaction ID: {}", e.getMessage());
         } catch (Exception e) {
             log.error("Error processing RabbitMQ message: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to process event", e);
