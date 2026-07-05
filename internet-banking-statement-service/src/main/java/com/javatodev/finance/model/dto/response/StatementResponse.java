@@ -1,5 +1,6 @@
 package com.javatodev.finance.model.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatementResponse {
     private UUID id;
     private String accountNumber;
@@ -22,5 +24,6 @@ public class StatementResponse {
     private LocalDateTime transactionDate;
     private String sourceService;
     private String description;
-    private String createdAt;
+    private LocalDateTime createdAt;
+    private String message;
 }

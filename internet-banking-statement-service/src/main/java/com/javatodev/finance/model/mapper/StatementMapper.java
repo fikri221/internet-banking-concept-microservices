@@ -4,7 +4,9 @@ import com.javatodev.finance.model.dto.response.StatementResponse;
 import com.javatodev.finance.model.entity.StatementEntity;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StatementMapper extends BaseMapper<StatementEntity, StatementResponse> {
     @Override
     public StatementEntity convertToEntity(StatementResponse dto, Object... args) {

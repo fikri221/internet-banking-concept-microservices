@@ -10,6 +10,6 @@ import java.util.UUID;
 
 public interface StatementRepository extends JpaRepository<StatementEntity, UUID> {
 
-    Page<StatementEntity> findByAccountNumberOrderByTransactionDateDesc(String accountNumber, Pageable pageable);
+    Page<StatementEntity> findByAccountNumber(String accountNumber, Pageable pageable);
     Boolean existsByTransactionReferenceAndAccountNumber(String transactionReference, String accountNumber);
 }

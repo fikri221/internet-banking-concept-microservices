@@ -27,10 +27,7 @@ public class StatementService {
 
     private final StatementRepository statementRepository;
 
-    private final StatementMapper mapper = new StatementMapper();
-
-    @Getter
-    private final ObjectMapper objectMapper;
+    private final StatementMapper mapper;
 
     /**
      * Read statements for a given account
@@ -47,7 +44,7 @@ public class StatementService {
                 : pageable;
 
         Page<StatementEntity> statementPage = statementRepository.
-                findByAccountNumberOrderByTransactionDateDesc(accountNumber, pageableWithSort);
+                findByAccountNumber(accountNumber, pageableWithSort);
 
         log.info("Found {} statements for account {}", statementPage.getTotalElements(), accountNumber);
         return mapper.convertToDtoPage(statementPage, pageableWithSort);
