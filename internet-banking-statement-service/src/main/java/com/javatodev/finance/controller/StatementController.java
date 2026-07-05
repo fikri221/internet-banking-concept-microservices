@@ -1,10 +1,9 @@
 package com.javatodev.finance.controller;
 
-import com.javatodev.finance.model.dto.Statement;
-import com.javatodev.finance.model.dto.request.StatementRequest;
 import com.javatodev.finance.model.dto.response.StatementResponse;
 import com.javatodev.finance.service.StatementService;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +23,9 @@ public class StatementController {
 
     // get statements for a given account
     @GetMapping
-    public ResponseEntity<List<Statement>> getStatements(@RequestParam("accountNumber") String accountNumber,
-                                                         Pageable pageable) {
-        log.info("Got fund transfer request from API {}", accountNumber);
+    public ResponseEntity<Page<StatementResponse>> getStatements(@RequestParam("accountNumber") String accountNumber,
+                                                                 Pageable pageable) {
+        log.info("Got statement request from API {}", accountNumber);
         return ResponseEntity.ok(statementService.readStatements(accountNumber, pageable));
     }
 }

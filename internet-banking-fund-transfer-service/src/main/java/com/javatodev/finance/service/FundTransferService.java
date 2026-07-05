@@ -10,14 +10,15 @@ import com.javatodev.finance.model.entity.OutboxEventEntity;
 import com.javatodev.finance.model.mapper.FundTransferMapper;
 import com.javatodev.finance.model.repository.FundTransferRepository;
 import com.javatodev.finance.model.repository.OutboxEventRepository;
-import com.javatodev.finance.service.rest.client.BankingCoreFeignClient;
 
+import com.javatodev.finance.service.rest.client.BankingCoreRestClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class FundTransferService {
 
     private final FundTransferRepository fundTransferRepository;
     private final OutboxEventRepository outboxEventRepository;
-    private final BankingCoreFeignClient bankingCoreFeignClient;
+    private final BankingCoreRestClient bankingCoreRestClient;
 
     private final FundTransferMapper mapper = new FundTransferMapper();
     private final ObjectMapper objectMapper;
@@ -63,7 +64,7 @@ public class FundTransferService {
         }
         BeanUtils.copyProperties(request, entity);
         entity.setStatus(TransactionStatus.PENDING);
-        entity.setLockedAt(LocalDateTime.now());
+        entity.setLockedAt(LocalDateTime.now(ZoneId.systemDefault()));
         FundTransferEntity optFundTransfer;
 
         try {
@@ -78,7 +79,7 @@ public class FundTransferService {
         }
 
         try {
-            FundTransferResponse fundTransferResponse = bankingCoreFeignClient.fundTransfer(request);
+            FundTransferResponse fundTransferResponse = bankingCoreRestClient.fundTransfer(request);
             optFundTransfer.setTransactionReference(fundTransferResponse.getTransactionId());
             optFundTransfer.setStatus(TransactionStatus.SUCCESS);
             fundTransferRepository.save(optFundTransfer);
@@ -108,7 +109,7 @@ public class FundTransferService {
      * @return true if the idempotency key is locked, false otherwise
      */
     public boolean chekIfIsLocked(FundTransferEntity idempotencyKey) {
-        return idempotencyKey.getLockedAt().plusSeconds(IDEMPOTENCY_KEY_LOCK_TIMEOUT_IN_SECONDS).isAfter(LocalDateTime.now());
+        return idempotencyKey.getLockedAt().plusSeconds(IDEMPOTENCY_KEY_LOCK_TIMEOUT_IN_SECONDS).isAfter(LocalDateTime.now(ZoneId.systemDefault()));
     }
 
     /**
